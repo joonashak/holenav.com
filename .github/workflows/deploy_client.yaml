@@ -1,6 +1,11 @@
 name: Deploy client to CDN
 
-on: workflow_dispatch
+on: 
+  workflow_dispatch:
+    inputs:
+      version:
+        description: Version tag to check out correct code
+        required: true
 
 jobs:
   deploy-client:
