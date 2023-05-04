@@ -10,7 +10,21 @@ on:
 
 jobs:
   staging-deploy:
-    name: Deploy client to staging
-    uses: ./.github/workflows/deploy_client.yaml
-    with:
-      ref: eb65c0021247cd5f761005fe131b6735f8282107
+    name: Deploy client
+    runs-on: ubuntu-latest
+    environment: holenav.com
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          repository: joonashak/holenav
+          ref: eb65c0021247cd5f761005fe131b6735f8282107
+      - name: Deploy client to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          alias-domains: |
+            ${{ vars.DOMAIN }}
+          working-directory: ./client
