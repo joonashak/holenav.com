@@ -1,14 +1,17 @@
 name: Staging deploy
 
-on: 
-  workflow_dispatch:
-    inputs:
-      ref:
-        description: Ref to check out correct code. Can be a tag (version number) or a commit hash.
-        required: true
+on:
+  push:
+#  workflow_dispatch:
+#    inputs:
+#      ref:
+#        description: Ref to check out correct code. Can be a tag (version number) or a commit hash.
+#        required: true
 
 jobs:
   staging-deploy:
     name: Deploy client to staging
     uses: ./.github/workflows/deploy_client.yaml
     environment: staging.holenav.com
+    with:
+      ref: eb65c0021247cd5f761005fe131b6735f8282107
