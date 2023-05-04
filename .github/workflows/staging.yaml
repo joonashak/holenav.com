@@ -12,7 +12,7 @@ jobs:
   staging-deploy:
     name: Deploy client
     runs-on: ubuntu-latest
-    environment: holenav.com
+    environment: staging.holenav.com
     steps:
       - name: Checkout
         uses: actions/checkout@v2
