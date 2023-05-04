@@ -12,6 +12,5 @@ jobs:
   staging-deploy:
     name: Deploy client to staging
     uses: ./.github/workflows/deploy_client.yaml
-    environment: staging.holenav.com
     with:
       ref: eb65c0021247cd5f761005fe131b6735f8282107
