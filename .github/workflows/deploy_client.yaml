@@ -1,23 +1,23 @@
 name: Deploy client to CDN
 
 on: 
-  workflow_dispatch:
+  workflow_call:
     inputs:
-      version:
-        description: Version tag to check out correct code
+      ref:
+        description: Ref to check out correct code. Can be a tag (version number) or a commit hash.
+        type: string
         required: true
 
 jobs:
   deploy-client:
-    name: Deploy client to staging
+    name: Deploy client
     runs-on: ubuntu-latest
-    environment: holenav.com
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           repository: joonashak/holenav
-          ref: ${{ inputs.version }}
+          ref: ${{ inputs.ref }}
       - name: Deploy client to Vercel
         uses: amondnet/vercel-action@v19
         with:
@@ -25,5 +25,5 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           alias-domains: |
-            ${{ secrets.DOMAIN }}
+            ${{ vars.DOMAIN }}
           working-directory: ./client
