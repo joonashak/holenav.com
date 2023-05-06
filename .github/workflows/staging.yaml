@@ -26,5 +26,6 @@ jobs:
           vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
           vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
           alias-domains: |
-            ${{ vars.DOMAIN }}
+            holenav.com
+          vercel-args: --prod
           working-directory: ./client
