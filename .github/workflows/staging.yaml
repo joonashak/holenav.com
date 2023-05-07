@@ -16,7 +16,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
       - name: Deploy client
-        uses: joonashak/holenav.com/.github/workflows/deploy_client.yaml
+        uses: joonashak/holenav.com/.github/workflows/deploy_client.yaml@main
         with:
           ref: ${{ inputs.ref }}
           vercelToken: ${{ secrets.VERCEL_TOKEN }}
