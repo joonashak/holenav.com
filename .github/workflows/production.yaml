@@ -1,0 +1,29 @@
+name: Production deploy
+
+on:
+ workflow_dispatch:
+   inputs:
+     ref:
+       description: Ref to check out correct code. Can be a tag (version number) or a commit hash.
+       required: true
+
+jobs:
+  staging-deploy:
+    name: Deploy client
+    runs-on: ubuntu-latest
+    environment: holenav.com
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          repository: joonashak/holenav
+          ref: ${{ inputs.ref }}
+      - name: Deploy client to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          alias-domains: ${{ vars.DOMAIN }}
+          vercel-args: --prod
+          working-directory: ./client
