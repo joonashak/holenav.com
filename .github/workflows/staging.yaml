@@ -13,17 +13,25 @@ jobs:
     runs-on: ubuntu-latest
     environment: staging.holenav.com
     steps:
-      - name: Checkout
-        uses: actions/checkout@v2
+      - name: Deploy client
+        uses: ./.github/workflows/deploy_client.yaml
         with:
-          repository: joonashak/holenav
           ref: ${{ inputs.ref }}
-      - name: Deploy client to Vercel
-        uses: amondnet/vercel-action@v25
-        with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          alias-domains: |
-            ${{ vars.DOMAIN }}
-          working-directory: ./client
+          vercelToken: ${{ secrets.VERCEL_TOKEN }}
+          vercelOrgId: ${{ secrets.VERCEL_ORG_ID }}
+          vercelProjectId: ${{ secrets.VERCEL_PROJECT_ID }}
+          domains: ${{ vars.DOMAIN }}
+    #   - name: Checkout
+    #     uses: actions/checkout@v2
+    #     with:
+    #       repository: joonashak/holenav
+    #       ref: ${{ inputs.ref }}
+    #   - name: Deploy client to Vercel
+    #     uses: amondnet/vercel-action@v25
+    #     with:
+    #       vercel-token: ${{ secrets.VERCEL_TOKEN }}
+    #       vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+    #       vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+    #       alias-domains: |
+    #         ${{ vars.DOMAIN }}
+    #       working-directory: ./client

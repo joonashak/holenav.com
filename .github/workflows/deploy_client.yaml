@@ -7,12 +7,27 @@ on:
         description: Ref to check out correct code. Can be a tag (version number) or a commit hash.
         type: string
         required: true
+      vercelToken:
+        description: Vercel token.
+        type: string
+        required: true
+      vercelOrgId:
+        description: Vercel organisation ID.
+        type: string
+        required: true
+      vercelProjectId:
+        description: Vercel project ID.
+        type: string
+        required: true
+      domains:
+        description: Domains. Comma-separated, if multiple.
+        type: string
+        required: true
 
 jobs:
   deploy-client:
     name: Deploy client
     runs-on: ubuntu-latest
-    environment: holenav.com
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -22,9 +37,8 @@ jobs:
       - name: Deploy client to Vercel
         uses: amondnet/vercel-action@v25
         with:
-          vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-          alias-domains: |
-            ${{ vars.DOMAIN }}
+          vercel-token: ${{ inputs.vercelToken }}
+          vercel-org-id: ${{ inputs.vercelOrgId }}
+          vercel-project-id: ${{ inputs.vercelProjectId }}
+          alias-domains: ${{ inputs.domains }}
           working-directory: ./client
