@@ -15,25 +15,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-      - name: Deploy client
-        uses: ./.github/actions/deploy_client/
         with:
+          repository: joonashak/holenav
           ref: ${{ inputs.ref }}
-          vercelToken: ${{ secrets.VERCEL_TOKEN }}
-          vercelOrgId: ${{ secrets.VERCEL_ORG_ID }}
-          vercelProjectId: ${{ secrets.VERCEL_PROJECT_ID }}
-          domains: ${{ vars.DOMAIN }}
-    #   - name: Checkout
-    #     uses: actions/checkout@v2
-    #     with:
-    #       repository: joonashak/holenav
-    #       ref: ${{ inputs.ref }}
-    #   - name: Deploy client to Vercel
-    #     uses: amondnet/vercel-action@v25
-    #     with:
-    #       vercel-token: ${{ secrets.VERCEL_TOKEN }}
-    #       vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
-    #       vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
-    #       alias-domains: |
-    #         ${{ vars.DOMAIN }}
-    #       working-directory: ./client
+      - name: Deploy client to Vercel
+        uses: amondnet/vercel-action@v25
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-org-id: ${{ secrets.VERCEL_ORG_ID }}
+          vercel-project-id: ${{ secrets.VERCEL_PROJECT_ID }}
+          alias-domains: ${{ vars.DOMAIN }}
+          working-directory: ./client
